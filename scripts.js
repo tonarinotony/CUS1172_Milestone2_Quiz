@@ -86,6 +86,7 @@ const end_test = () =>{
 
 const quiz1 = () =>{
 	app_state.quiz = 1
+	app_state.qnum = 100
 	document.querySelector("#qCon").classList.remove("hide")
 	create_question_view(0)
 	document.querySelector("#menuCon").classList.add("hide")
@@ -93,7 +94,7 @@ const quiz1 = () =>{
 }
 const quiz2 = () =>{
 	app_state.quiz = 2
-	app_state.qnum = 20
+	app_state.qnum = 200
 	document.querySelector("#qCon").classList.remove("hide")
 	create_question_view(20)
 	document.querySelector("#menuCon").classList.add("hide")
@@ -137,7 +138,7 @@ const help_visible = () => {
 
 const helpDone = () => {
 	document.querySelector("#helpCon").classList.add("hide")
-	if(app_state.qNumber < 20)
+	if(app_state.qnum != -1)
 		{
 			create_question_view(app_state.qnum)
 		}
@@ -147,15 +148,15 @@ const helpDone = () => {
 		}
 }
 
-const handle_question = (e) => {
+const handle_question = async(e) => {
+	const data = await fetch("https://cors-anywhere.herokuapp.com/https://cus1172quizapi.herokuapp.com/quiz/2/200")
+	const model = await data.json()
 	if(e.target.dataset.correct == "true"){
 		app_state.question_correct += 1
-		app_state.qNumber += 1
-		app_state.qnum += 1
 		update_heading()
 		nice_message()
 		clear_page()
-		if(app_state.qNumber < 20)
+		if(app_state.qnum != -1)
 		{
 			create_question_view(app_state.qnum)
 		}
@@ -167,8 +168,6 @@ const handle_question = (e) => {
 	else if (e.target.dataset.correct == "false")
 	{
 		app_state.question_false += 1
-		app_state.qnum += 1
-		app_state.qNumber+=1
 		update_heading()
 		clear_page()
 		help_visible()
@@ -187,7 +186,7 @@ const render_view = (model, view) => {
 
 const create_question_view = async (qnum) =>
 {
-	const data = await fetch("https://cors-anywhere.herokuapp.com/https://cus1172quizapi.herokuapp.com/quiz/2/200")
+	const data = await fetch("https://cors-anywhere.herokuapp.com/https://cus1172quizapi.herokuapp.com/quiz/"+app_state.quiz +"/" +app_state.qnum)
 	const model = await data.json()
 	console.log(model)
 	console.log(model[0].data.answer_options[0])
