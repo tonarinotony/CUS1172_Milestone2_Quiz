@@ -1,0 +1,83 @@
+*, *::before, *::after{
+	box-sizing: border-box;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+	display: flex;
+	width:100%;
+	align-items:center;
+	background-color: #434343;
+}
+
+#qCon,#menuCon,#helpCon {
+	width: 800px;
+	max-width: 80%;
+	border-radius: 5px;
+	padding:10px;
+	background-color: white;
+	text-align:center;
+}
+#headingContainer{
+	height: 190px;
+	background-color: white;
+	text-align:left;
+}
+.btn-grid {
+	display:grid;
+	grid-template-columns: repeat(2,auto);
+	gap: 10px;
+	margin: 10px 0;
+}
+
+.btn {
+	background-color: #434343;
+	border-radius: 5px;
+	padding: 5px 5px;
+	outline:none;
+	border: 2px solid gray;
+	color: white;
+}
+
+.btn:hover {
+	border-color: black;
+}
+
+#nameForm {
+	width: 800px;
+	max-width: 80%;
+	margin-bottom: 0;
+	padding:60px;
+	background-color: #292b2c;
+	color: white;
+	text-align: center;
+}
+
+.hide {
+	display:none;
+}
+
+img{
+	width:400px;
+	height:200px;
+	max-height: 100%;
+	max-width: 100%;
+}
+
+h2{
+	text-align:center;
+}
+
+#answer {
+	width: 800px;
+	max-width:70%;
+}
+
+
+input[type=submit]{
+	background-color: gray;
+	padding: 5px 10px;
+	color: white;
+	border:#292b2c;
+}

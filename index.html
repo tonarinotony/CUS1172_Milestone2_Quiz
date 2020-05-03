@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+	<link rel="stylesheet" href="style/styles.css">
+	<script src="scripts.js"></script>
+</head>
+<body>
+	<div class ="container">
+		<div class="row">
+			<div id = "nameForm" class="container">
+				<h2 id= nameHeading> Enter your name </h2>
+				<form id = "name_form">
+					<label for="fullName"> Full Name </label>
+					<input type="text" id="fullName" > </input>
+					<input type="submit" value="Submit">
+
+				</form>
+			</div>
+
+		</div>
+
+		<div class="row">
+			<div class = "container hide" id="menuCon">
+				<h2> Choose a Quiz </h2>
+				<div class ="btn-grid">
+				<button id = "q1" class="btn" onclick = "quiz1()">Quiz 1</button>
+				<button id = "q2" class="btn" onclick = "quiz2()">Quiz 2</button>
+				</div>
+			</div>	
+		</div>
+
+		<div class= "row">
+			<div id = "qCon" class="container hide" >
+				<div id= headingContainer class ="container">
+					<h3 id = "correctHeading"> 0 Correct</h3>
+					<h3 id = "incorrectHeading"> 0 Incorrect</h3>
+					<p><span id="timer" >00:00:00</span></p>
+					<h1 id="message" class="hide text-white bg-success">Nice Job!</h1>
+				</div>
+				<div id="questionCon" class ="">			
+
+				</div>
+			</div>
+		</div>
+
+		<div class ="row">
+			<div id = "endCon" class="container hide">
+				<h1 id="pass" class="hide text-white bg-success"> </h1>
+				<h1 id="fail" class="hide text-white bg-danger"> </h1>
+				<div id="endGrid" class ="btn-grid">
+					<button class="btn" onclick="retry()"> Retry? </button>
+
+					<button class="btn" onclick="main_menu()"> Main Menu </button>
+				</div>
+			</div>
+		</div>
+
+		<div class ="row">
+			<div id = "helpCon" class="container hide">
+			</div>
+		</div>
+	</div>
+
+		<script id="quizView" type="text/x-handlebars-template">
+
+			<h2> {{question}} </h2>
+			<img id="qPic" src={{picture}}> 
+				<div id= "answerButt" class ="btn-grid">
+					<button class="btn" data-correct={{correct1}}>{{answer1}} </button>
+
+					<button class="btn" data-correct={{correct2}}>{{answer2}} </button>
+
+					<button class="btn" data-correct={{correct3}}>{{answer3}} </button>
+
+					<button class="btn" data-correct={{correct4}}>{{answer4}} </button>
+				</div>
+	
+		</script>
+
+
+		<script id="fillIn" type="text/x-handlebars-template">
+			<h2> {{question}} </h2>
+			<img id="qPic" src={{picture}}>
+			<div id="fill in">
+				<form id = "answer_form">
+					<input type="text" id="answer" ></input>
+					<input type="submit" value="Submit">
+
+				</form>
+			</div>
+		</script>
+
+		<script id="imageMC" type="text/x-handlebars-template">
+			<h2> {{question}} </h2>
+			<div id= "picGrid" class = "btn-grid">
+				<img src={{answer1}} data-correct={{correct1}}>
+				<img src={{answer2}} data-correct={{correct2}}>
+				<img src={{answer3}} data-correct={{correct3}}>
+				<img src={{answer4}} data-correct={{correct4}}>
+			</div>
+		</script>
+
+		
+		<script id = "helpView" type="text/x-handlebars-template">
+			<h2>  {{question}} </h2>
+			<p> {{help}} </p>
+			<button class ="btn" onclick="helpDone()"> I got it!</button>			
+		</script>
+	</div>
+
+</body>
+</html>
