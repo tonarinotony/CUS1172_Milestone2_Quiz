@@ -87,7 +87,7 @@ const end_test = () =>{
 const quiz1 = () =>{
 	app_state.quiz = 1
 	document.querySelector("#qCon").classList.remove("hide")
-	create_questions_view(0)
+	create_question_view(0)
 	document.querySelector("#menuCon").classList.add("hide")
 	reset_timer()
 }
@@ -184,33 +184,16 @@ const render_view = (model, view) => {
 	return html_widget_element
 
 }
-const create_questions_view = async (qnum) =>
-{
-	const data = await fetch("https://cors-anywhere.herokuapp.com/https://cus1172quizapi.herokuapp.com/quiz/1")
-	const model = await data.json()
-		const question_html = render_view(model, "#quizView")
-	console.log(model)
-}
+
 const create_question_view = async (qnum) =>
 {
-	const data = await fetch("https://tonarinotony.github.io/questionJSON/db.json")
+	const data = await fetch("https://cors-anywhere.herokuapp.com/https://cus1172quizapi.herokuapp.com/quiz/1/100")
 	const model = await data.json()
-	if(model.questions[qnum].type == "mc"){
-		const modelled = {
-			question:model.questions[qnum].question,
-			help:model.questions[qnum].help,
-			picture:model.questions[qnum].picture,
-			answer1:model.questions[qnum].answers[0].text,
-			answer2:model.questions[qnum].answers[1].text,
-			answer3:model.questions[qnum].answers[2].text,
-			answer4:model.questions[qnum].answers[3].text,
-			correct1:model.questions[qnum].answers[0].correct,
-			correct2:model.questions[qnum].answers[1].correct,
-			correct3:model.questions[qnum].answers[2].correct,
-			correct4:model.questions[qnum].answers[3].correct
-			}
-		const question_html = render_view(modelled, "#quizView")
-		const help_html = render_view(modelled,"#helpView")
+	console.log(model)
+	if(model[0].data.questions_type){
+		console.log('working MC question')
+		const question_html = render_view(model, "#quizView")
+		const help_html = render_view(model,"#helpView")
 		document.querySelector("#helpCon").innerHTML = help_html;
 		document.querySelector("#questionCon").innerHTML = question_html;
 		console.log(model.questions[qnum].picture)
@@ -223,37 +206,19 @@ const create_question_view = async (qnum) =>
 			document.querySelector("#qPic").classList.remove("hide")
 		}
 	}
-	else if(model.questions[qnum].type == "imageMC")
+	else if(model.questions_type == "imageMC")
 	{
-		const modelled = {
-			question:model.questions[qnum].question,
-			help:model.questions[qnum].help,
-			answer1:model.questions[qnum].answers[0].text,
-			answer2:model.questions[qnum].answers[1].text,
-			answer3:model.questions[qnum].answers[2].text,
-			answer4:model.questions[qnum].answers[3].text,
-			correct1:model.questions[qnum].answers[0].correct,
-			correct2:model.questions[qnum].answers[1].correct,
-			correct3:model.questions[qnum].answers[2].correct,
-			correct4:model.questions[qnum].answers[3].correct
-			}
-		const question_html = render_view(modelled, "#imageMC")
+		const question_html = render_view(model, "#imageMC")
 		document.querySelector("#questionCon").innerHTML = question_html;
-		const help_html = render_view(modelled,"#helpView")
+		const help_html = render_view(model,"#helpView")
 		document.querySelector("#helpCon").innerHTML = help_html;
 	}
 
-	else if(model.questions[qnum].type == "fillIn")
+	else if(model.questions_type == "fillIn")
 	{
-		const modelled = 
-		{
-		question:model.questions[qnum].question,
-		help:model.questions[qnum].help,
-		picture:model.questions[qnum].picture
-		}
 
-		const question_html = render_view(modelled, "#fillIn")
-		const help_html = render_view(modelled,"#helpView")
+		const question_html = render_view(model, "#fillIn")
+		const help_html = render_view(model,"#helpView")
 		document.querySelector("#helpCon").innerHTML = help_html;
 		document.querySelector("#questionCon").innerHTML = question_html;
 		console.log(model.questions[qnum].picture)
