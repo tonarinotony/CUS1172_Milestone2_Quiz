@@ -149,9 +149,10 @@ const helpDone = () => {
 }
 
 const handle_question = async(e) => {
-	const data = await fetch("https://cors-anywhere.herokuapp.com/https://cus1172quizapi.herokuapp.com/quiz/2/200")
+	const data = await fetch("https://cors-anywhere.herokuapp.com/https://cus1172quizapi.herokuapp.com/quiz/check_answer/"+app_state.quiz + "/" + app_state.qnum + "/" + e.target.dataset.correct)
 	const model = await data.json()
-	if(e.target.dataset.correct == "true"){
+	console.log(model)
+	if(model.correct == true){
 		app_state.question_correct += 1
 		update_heading()
 		nice_message()
@@ -165,7 +166,7 @@ const handle_question = async(e) => {
 			end_test()
 		}
 	}
-	else if (e.target.dataset.correct == "false")
+	else if (model.correct == false)
 	{
 		app_state.question_false += 1
 		update_heading()
@@ -186,7 +187,7 @@ const render_view = (model, view) => {
 
 const create_question_view = async (qnum) =>
 {
-	const data = await fetch("https://cors-anywhere.herokuapp.com/https://cus1172quizapi.herokuapp.com/quiz/"+app_state.quiz +"/" +app_state.qnum)
+	const data = await fetch("https://cors-anywhere.herokuapp.com/https://cus1172quizapi.herokuapp.com/quiz/"+ app_state.quiz +"/" +app_state.qnum)
 	const model = await data.json()
 	console.log(model)
 	console.log(model[0].data.answer_options[0])
