@@ -187,17 +187,17 @@ const render_view = (model, view) => {
 
 const create_question_view = async (qnum) =>
 {
-	const data = await fetch("https://cors-anywhere.herokuapp.com/https://cus1172quizapi.herokuapp.com/quiz/1/100")
+	const data = await fetch("https://cors-anywhere.herokuapp.com/https://cus1172quizapi.herokuapp.com/quiz/2/200")
 	const model = await data.json()
 	console.log(model)
-	if(model[0].data.questions_type){
+	console.log(model[0].data.answer_options[0])
+	if(model[0].data.question_type == "mc"){
 		console.log('working MC question')
 		const question_html = render_view(model, "#quizView")
 		const help_html = render_view(model,"#helpView")
 		document.querySelector("#helpCon").innerHTML = help_html;
 		document.querySelector("#questionCon").innerHTML = question_html;
-		console.log(model.questions[qnum].picture)
-		if(model.questions[qnum].picture == '' || model.questions[qnum].picture == undefined)
+		if(model.questions.picture == '' || model.questions.picture == undefined)
 		{
 			document.querySelector("#qPic").classList.add("hide")
 		}
@@ -206,7 +206,7 @@ const create_question_view = async (qnum) =>
 			document.querySelector("#qPic").classList.remove("hide")
 		}
 	}
-	else if(model.questions_type == "imageMC")
+	else if(model[0].data.question_type == "imageMC")
 	{
 		const question_html = render_view(model, "#imageMC")
 		document.querySelector("#questionCon").innerHTML = question_html;
@@ -214,7 +214,7 @@ const create_question_view = async (qnum) =>
 		document.querySelector("#helpCon").innerHTML = help_html;
 	}
 
-	else if(model.questions_type == "fillIn")
+	else if(model[0].data.question_type == "fillIn")
 	{
 
 		const question_html = render_view(model, "#fillIn")

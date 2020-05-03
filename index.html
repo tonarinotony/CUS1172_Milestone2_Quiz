@@ -68,16 +68,16 @@
 
 		<script id="quizView" type="text/x-handlebars-template">
 
-			<h2> {{question}} </h2>
+			<h2> {{0.data.question}} </h2>
 			<img id="qPic" src={{picture}}> 
 				<div id= "answerButt" class ="btn-grid">
-					<button class="btn" data-correct={{}}>{{0.data.questions.answer_options.0}} </button>
+					<button class="btn" data-correct="">{{0.data.answer_options.[0]}} </button>
 
-					<button class="btn" data-correct={{}}>{{answer_options.1}} </button>
+					<button class="btn" data-correct="">{{0.data.answer_options.[1]}} </button>
 
-					<button class="btn" data-correct={{}}>{{answer_options.2}} </button>
+					<button class="btn" data-correct="">{{0.data.answer_options.[2]}} </button>
 
-					<button class="btn" data-correct={{}}>{{answer_options.3}} </button>
+					<button class="btn" data-correct="">{{0.data.answer_options.[3]}} </button>
 				</div>
 	
 		</script>
