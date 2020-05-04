@@ -235,11 +235,11 @@ const create_question_view = async (qnum) =>
 		const answerForm = document.querySelector('#answer_form');
 		const answerInput = document.querySelector('#answer');
 		answerForm.addEventListener('submit', onSubmit);
-		function onSubmit(e){
+		async function onSubmit(e){
 			e.preventDefault();
-			const data2 = await fetch("https://cors-anywhere.herokuapp.com/https://cus1172quizapi.herokuapp.com/quiz/check_answer/"+app_state.quiz + "/" + app_state.qnum + "/" + answerInput.value)
+			const data2 = await fetch("https://cors-anywhere.herokuapp.com/https://cus1172quizapi.herokuapp.com/quiz/check_answer/"+app_state.quiz + "/" + app_state.qnum + "/" + answerForm.value)
 			const model2 = await data.json()
-			if()
+			if(model2.correct == true)
 			{
 				app_state.question_correct += 1
 				update_heading()
@@ -256,14 +256,11 @@ const create_question_view = async (qnum) =>
 				}
 			}
 			else{
-				if(app_state.qnum != -1)
-				{
 				app_state.question_false += 1
 				update_heading()
 				clear_page()
 				app_state.qnum = nextQnum
 				help_visible()
-				}
 			}
 		}
 	}
