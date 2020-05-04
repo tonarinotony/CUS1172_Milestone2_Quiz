@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () =>{
 });
 
 const app_state = {
-	qNumber :0,
+	nextQnum :-1,
 	qnum:0,
 	question_correct : 0,
 	question_false : 0,
@@ -157,6 +157,7 @@ const handle_question = async(e) => {
 		update_heading()
 		nice_message()
 		clear_page()
+		app_state.qnum = nextQnum
 		if(app_state.qnum != -1)
 		{
 			create_question_view(app_state.qnum)
@@ -171,6 +172,7 @@ const handle_question = async(e) => {
 		app_state.question_false += 1
 		update_heading()
 		clear_page()
+		app_state.qnum = nextQnum
 		help_visible()
 	}
 }
@@ -190,7 +192,8 @@ const create_question_view = async (qnum) =>
 	const data = await fetch("https://cors-anywhere.herokuapp.com/https://cus1172quizapi.herokuapp.com/quiz/"+ app_state.quiz +"/" +app_state.qnum)
 	const model = await data.json()
 	console.log(model)
-	console.log(model[0].data.answer_options[0])
+	console.log(model[0].meta.next_question)
+	nextQnum = model[0].meta.next_question
 	if(model[0].data.question_type == "mc"){
 		console.log('working MC question')
 		const question_html = render_view(model, "#quizView")
@@ -216,7 +219,6 @@ const create_question_view = async (qnum) =>
 
 	else if(model[0].data.question_type == "fillIn")
 	{
-
 		const question_html = render_view(model, "#fillIn")
 		const help_html = render_view(model,"#helpView")
 		document.querySelector("#helpCon").innerHTML = help_html;
@@ -235,15 +237,16 @@ const create_question_view = async (qnum) =>
 		answerForm.addEventListener('submit', onSubmit);
 		function onSubmit(e){
 			e.preventDefault();
-			if(answerInput.value == model.questions[qnum].answer)
+			const data2 = await fetch("https://cors-anywhere.herokuapp.com/https://cus1172quizapi.herokuapp.com/quiz/check_answer/"+app_state.quiz + "/" + app_state.qnum + "/" + answerInput.value)
+			const model2 = await data.json()
+			if()
 			{
 				app_state.question_correct += 1
-				app_state.qNumber += 1
-				app_state.qnum += 1
 				update_heading()
 				nice_message()
 				clear_page()
-				if(app_state.qNumber < 20)
+				app_state.qnum = nextQnum
+				if(app_state.qnum != -1)
 				{
 					create_question_view(app_state.qnum)
 				}
@@ -253,13 +256,12 @@ const create_question_view = async (qnum) =>
 				}
 			}
 			else{
-				if(app_state.qNumber < 20)
+				if(app_state.qnum != -1)
 				{
 				app_state.question_false += 1
-				app_state.qNumber+=1
-				app_state.qnum += 1
 				update_heading()
 				clear_page()
+				app_state.qnum = nextQnum
 				help_visible()
 				}
 			}

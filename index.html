@@ -84,7 +84,7 @@
 
 
 		<script id="fillIn" type="text/x-handlebars-template">
-			<h2> {{question}} </h2>
+			<h2> {{0.data.question}} </h2>
 			<img id="qPic" src={{picture}}>
 			<div id="fill in">
 				<form id = "answer_form">
@@ -96,19 +96,19 @@
 		</script>
 
 		<script id="imageMC" type="text/x-handlebars-template">
-			<h2> {{question}} </h2>
+			<h2> {{0.data.question}} </h2>
 			<div id= "picGrid" class = "btn-grid">
-				<img src={{answer1}} data-correct={{correct1}}>
-				<img src={{answer2}} data-correct={{correct2}}>
-				<img src={{answer3}} data-correct={{correct3}}>
-				<img src={{answer4}} data-correct={{correct4}}>
+				<img src={{0.data.answer_options.[0]}} data-correct="0">
+				<img src={{0.data.answer_options.[1]}} data-correct="1">
+				<img src={{0.data.answer_options.[2]}} data-correct="2">
+				<img src={{0.data.answer_options.[3]}} data-correct="3">
 			</div>
 		</script>
 
 		
 		<script id = "helpView" type="text/x-handlebars-template">
-			<h2>  {{question}} </h2>
-			<p> {{help}} </p>
+			<h2>  {{0.data.question}} </h2>
+			<p> {{0.data.help}} </p>
 			<button class ="btn" onclick="helpDone()"> I got it!</button>			
 		</script>
 	</div>
