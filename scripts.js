@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () =>{
 const app_state = {
 	nextQnum :-1,
 	qnum:0,
+	first:0,
 	question_correct : 0,
 	question_false : 0,
 	user_name:"",
@@ -72,7 +73,7 @@ const clear_page = () =>{
 }
 
 const end_test = () =>{
-	let grade = (app_state.question_correct)/20
+	let grade = (app_state.question_correct)/(app_state.question_correct+app_state.question_false)
 	document.querySelector("#endCon").classList.remove("hide")
 	if (grade >= .8){
 		document.querySelector("#pass").classList.remove("hide")
@@ -83,7 +84,10 @@ const end_test = () =>{
 		document.querySelector("#fail").innerHTML = "Sorry " + app_state.user_name + " you failed.. \nScore: " + grade * 100 + "%";
 	}
 }
-const quiz = () => {
+const quiz = (id, first) => {
+	app_state.quiz = id
+	app_state.qnum = first
+	app_state.first = first
 	document.querySelector("#qCon").classList.remove("hide")
 	create_question_view(app_state.qnum)
 	document.querySelector("#menuCon").classList.add("hide")
@@ -92,8 +96,6 @@ const quiz = () => {
 const app_state_reset = () => {
 	app_state.question_correct = 0;
 	app_state.question_false = 0;
-	app_state.qNumber = 0;
-	app_state.qnum = 0;
 	document.querySelector("#fail").classList.add("hide")
 	document.querySelector("#fail").innerHTML = "";
 	document.querySelector("#pass").classList.add("hide")
@@ -104,12 +106,7 @@ const app_state_reset = () => {
 const retry = () => {
 	app_state_reset()
 	update_heading()
-	if(app_state.quiz == 1){
-		quiz1()
-	}
-	else if (app_state.quiz == 2){
-		quiz2()
-	}
+	quiz(app_state.quiz,app_state.first)
 }
 
 const main_menu = () =>{
