@@ -87,21 +87,18 @@
 			<h2> {{0.data.question}} </h2>
 			<img id="qPic" src={{0.data.picture}}>
 			<div id="fill in">
-				<form id = "answer_form">
 					<input type="text" id="answer" ></input>
-					<button class="btn" onclick="fillInCheck()"> Submit </button>
-
-				</form>
+					<button class='submit' onclick="checkFillIn()">Submit </button>
 			</div>
 		</script>
 
 		<script id="imageMC" type="text/x-handlebars-template">
 			<h2> {{0.data.question}} </h2>
 			<div id= "picGrid" class = "btn-grid">
-				<img src={{0.data.answer_options.[0]}} data-correct="0">
-				<img src={{0.data.answer_options.[1]}} data-correct="1">
-				<img src={{0.data.answer_options.[2]}} data-correct="2">
-				<img src={{0.data.answer_options.[3]}} data-correct="3">
+				<img src={{0.data.answer_options.[0]}} data-correct="0" class="btn">
+				<img src={{0.data.answer_options.[1]}} data-correct="1" class="btn">
+				<img src={{0.data.answer_options.[2]}} data-correct="2" class="btn">
+				<img src={{0.data.answer_options.[3]}} data-correct="3" class="btn">
 			</div>
 		</script>
 

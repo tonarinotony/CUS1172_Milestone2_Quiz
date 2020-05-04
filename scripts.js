@@ -151,8 +151,7 @@ const helpDone = () => {
 const handle_question = async(e) => {
 	const data = await fetch("https://cors-anywhere.herokuapp.com/https://cus1172quizapi.herokuapp.com/quiz/check_answer/"+app_state.quiz + "/" + app_state.qnum + "/" + e.target.dataset.correct)
 	const model = await data.json()
-	console.log(model)
-	if(model.correct == true){
+	if(model.correct == true && e.target.className == 'btn'){
 		app_state.question_correct += 1
 		update_heading()
 		nice_message()
@@ -167,7 +166,7 @@ const handle_question = async(e) => {
 			end_test()
 		}
 	}
-	else if (model.correct == false)
+	else if (model.correct == false && e.target.className == 'btn')
 	{
 		app_state.question_false += 1
 		update_heading()
@@ -223,7 +222,6 @@ const create_question_view = async (qnum) =>
 		const help_html = render_view(model,"#helpView")
 		document.querySelector("#helpCon").innerHTML = help_html;
 		document.querySelector("#questionCon").innerHTML = question_html;
-		console.log(model.questions[qnum].picture)
 		if(model[0].data.picture == '' || model[0].data.picture == undefined)
 		{
 			document.querySelector("#qPic").classList.add("hide")
@@ -232,11 +230,12 @@ const create_question_view = async (qnum) =>
 		{
 			document.querySelector("#qPic").classList.remove("hide")
 		}
+		const answerForm = document.querySelector('#answer_form');
+		const answerInput = document.querySelector('#answer');
 
 	}
 }
-
-const fillInCheck = async() => {
+async function checkFillIn(){
 		const answerInput = document.querySelector('#answer');
 		const data = await fetch("https://cors-anywhere.herokuapp.com/https://cus1172quizapi.herokuapp.com/quiz/check_answer/"+app_state.quiz + "/" + app_state.qnum + "/" + answerInput.value)
 		const model = await data.json()
@@ -263,8 +262,7 @@ const fillInCheck = async() => {
 				app_state.qnum = nextQnum
 				help_visible()
 			}
-}
-
+		}
 
 window.onload=function(){
 	const nameForm = document.querySelector('#name_form');
