@@ -200,7 +200,7 @@ const create_question_view = async (qnum) =>
 		const help_html = render_view(model,"#helpView")
 		document.querySelector("#helpCon").innerHTML = help_html;
 		document.querySelector("#questionCon").innerHTML = question_html;
-		if(model.questions.picture == '' || model.questions.picture == undefined)
+		if(model[0].data.picture == '' || model[0].data.picture == undefined)
 		{
 			document.querySelector("#qPic").classList.add("hide")
 		}
@@ -224,7 +224,7 @@ const create_question_view = async (qnum) =>
 		document.querySelector("#helpCon").innerHTML = help_html;
 		document.querySelector("#questionCon").innerHTML = question_html;
 		console.log(model.questions[qnum].picture)
-		if(model.questions[qnum].picture == '' || model.questions[qnum].picture == undefined)
+		if(model[0].data.picture == '' || model[0].data.picture == undefined)
 		{
 			document.querySelector("#qPic").classList.add("hide")
 		}
