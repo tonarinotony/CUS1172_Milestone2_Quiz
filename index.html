@@ -69,7 +69,7 @@
 		<script id="quizView" type="text/x-handlebars-template">
 
 			<h2> {{0.data.question}} </h2>
-			<img id="qPic" src={{picture}}> 
+			<img id="qPic" src={{0.data.picture}}> 
 				<div id= "answerButt" class ="btn-grid">
 					<button class="btn" data-correct="0">{{0.data.answer_options.[0]}} </button>
 
@@ -85,11 +85,11 @@
 
 		<script id="fillIn" type="text/x-handlebars-template">
 			<h2> {{0.data.question}} </h2>
-			<img id="qPic" src={{picture}}>
+			<img id="qPic" src={{0.data.picture}}>
 			<div id="fill in">
 				<form id = "answer_form">
 					<input type="text" id="answer" ></input>
-					<input type="submit" value="Submit">
+					<button class="btn" onclick="fillInCheck()"> Submit </button>
 
 				</form>
 			</div>
