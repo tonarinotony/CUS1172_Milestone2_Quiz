@@ -135,7 +135,7 @@ const helpDone = () => {
 }
 
 const handle_question = async(e) => {
-	const data = await fetch("https://cors-anywhere.herokuapp.com/https://cus1172quizapi.herokuapp.com/quiz/check_answer/"+app_state.quiz + "/" + app_state.qnum + "/" + e.target.dataset.correct)
+	const data = await fetch("https://cus1172quizapi.herokuapp.com/quiz/check_answer/"+app_state.quiz + "/" + app_state.qnum + "/" + e.target.dataset.correct)
 	const model = await data.json()
 	if(model.correct == true && e.target.className == 'btn'){
 		app_state.question_correct += 1
@@ -174,7 +174,7 @@ const render_view = (model, view) => {
 
 const create_list_view = async () =>
 {
-	const data = await fetch("https://cors-anywhere.herokuapp.com/https://cus1172quizapi.herokuapp.com/quiz/list")
+	const data = await fetch("https://cus1172quizapi.herokuapp.com/quiz/list")
 	const model = await data.json()
 	console.log(model)
 	const menu_html = render_view(model,"#menuButtons")
@@ -183,7 +183,7 @@ const create_list_view = async () =>
 
 const create_question_view = async (qnum) =>
 {
-	const data = await fetch("https://cors-anywhere.herokuapp.com/https://cus1172quizapi.herokuapp.com/quiz/"+ app_state.quiz +"/" +app_state.qnum)
+	const data = await fetch("https://cus1172quizapi.herokuapp.com/quiz/"+ app_state.quiz +"/" +app_state.qnum)
 	const model = await data.json()
 	nextQnum = model[0].meta.next_question
 	if(model[0].data.question_type == "mc"){
@@ -230,7 +230,7 @@ const create_question_view = async (qnum) =>
 }
 async function checkFillIn(){
 		const answerInput = document.querySelector('#answer');
-		const data = await fetch("https://cors-anywhere.herokuapp.com/https://cus1172quizapi.herokuapp.com/quiz/check_answer/"+app_state.quiz + "/" + app_state.qnum + "/" + answerInput.value)
+		const data = await fetch("https://cus1172quizapi.herokuapp.com/quiz/check_answer/"+app_state.quiz + "/" + app_state.qnum + "/" + answerInput.value)
 		const model = await data.json()
 			if(model.correct == true)
 			{
