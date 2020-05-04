@@ -27,9 +27,7 @@
 		<div class="row">
 			<div class = "container hide" id="menuCon">
 				<h2> Choose a Quiz </h2>
-				<div class ="btn-grid">
-				<button id = "q1" class="btn" onclick = "quiz1()">Quiz 1</button>
-				<button id = "q2" class="btn" onclick = "quiz2()">Quiz 2</button>
+				<div class ="btn-grid" id="menuGrid">
 				</div>
 			</div>	
 		</div>
@@ -107,6 +105,12 @@
 			<h2>  {{0.data.question}} </h2>
 			<p> {{0.data.help}} </p>
 			<button class ="btn" onclick="helpDone()"> I got it!</button>			
+		</script>
+
+		<script id = "menuButtons" type="text/x-handlebars-template">
+			{{#each list}}
+		<button id = "quiz button" class="btn" onclick = "quiz()">{{title}}</button>
+			{{/each}}
 		</script>
 	</div>
 

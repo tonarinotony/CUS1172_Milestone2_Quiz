@@ -83,20 +83,9 @@ const end_test = () =>{
 		document.querySelector("#fail").innerHTML = "Sorry " + app_state.user_name + " you failed.. \nScore: " + grade * 100 + "%";
 	}
 }
-
-const quiz1 = () =>{
-	app_state.quiz = 1
-	app_state.qnum = 100
+const quiz = () => {
 	document.querySelector("#qCon").classList.remove("hide")
-	create_question_view(0)
-	document.querySelector("#menuCon").classList.add("hide")
-	reset_timer()
-}
-const quiz2 = () =>{
-	app_state.quiz = 2
-	app_state.qnum = 200
-	document.querySelector("#qCon").classList.remove("hide")
-	create_question_view(20)
+	create_question_view(app_state.qnum)
 	document.querySelector("#menuCon").classList.add("hide")
 	reset_timer()
 }
@@ -186,12 +175,19 @@ const render_view = (model, view) => {
 
 }
 
+const create_list_view = async () =>
+{
+	const data = await fetch("https://cors-anywhere.herokuapp.com/https://cus1172quizapi.herokuapp.com/quiz/list")
+	const model = await data.json()
+	console.log(model)
+	const menu_html = render_view(model,"#menuButtons")
+	document.querySelector("#menuGrid").innerHTML = menu_html;
+}
+
 const create_question_view = async (qnum) =>
 {
 	const data = await fetch("https://cors-anywhere.herokuapp.com/https://cus1172quizapi.herokuapp.com/quiz/"+ app_state.quiz +"/" +app_state.qnum)
 	const model = await data.json()
-	console.log(model)
-	console.log(model[0].meta.next_question)
 	nextQnum = model[0].meta.next_question
 	if(model[0].data.question_type == "mc"){
 		console.log('working MC question')
@@ -277,6 +273,7 @@ window.onload=function(){
 			nameForm.classList.add("hide")
 			app_state.user_name = nameInput.value
 			document.querySelector("#nameHeading").innerHTML = "Welcome " + app_state.user_name;
+			create_list_view()
 			menu_visible()
 
 		}
